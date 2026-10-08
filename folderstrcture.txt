@@ -1,0 +1,321 @@
+restaurant-system/
+│
+├── README.md
+├── .gitignore
+│
+├── client/                                    ← React + Vite frontend
+│   ├── package.json
+│   ├── vite.config.js
+│   ├── index.html
+│   ├── postcss.config.js
+│   ├── tailwind.config.js
+│   │
+│   ├── public/
+│   │   ├── favicon.svg
+│   │   ├── logo.svg
+│   │   └── images/
+│   │       ├── logo/
+│   │       │   └── restaurant-logo.png
+│   │       ├── food/
+│   │       │   ├── burger.jpg
+│   │       │   ├── pizza.jpg
+│   │       │   ├── pasta.jpg
+│   │       │   ├── steak.jpg
+│   │       │   ├── salmon.jpg
+│   │       │   ├── octopus.jpg
+│   │       │   ├── fries.jpg
+│   │       │   ├── calamari.jpg
+│   │       │   └── dessert.jpg
+│   │       └── categories/
+│   │           ├── signature.jpg
+│   │           ├── burgers.jpg
+│   │           ├── pizza.jpg
+│   │           ├── drinks.jpg
+│   │           └── dessert.jpg
+│   │
+│   └── src/
+│       ├── main.jsx
+│       ├── App.jsx
+│       ├── index.css
+│       │
+│       ├── api/
+│       │   ├── axios.js
+│       │   ├── authApi.js
+│       │   ├── menuApi.js
+│       │   ├── orderApi.js
+│       │   ├── paymentApi.js
+│       │   ├── adminApi.js
+│       │   ├── analyticsApi.js
+│       │   └── tableApi.js
+│       │
+│       ├── assets/
+│       │   ├── icons/
+│       │   └── images/
+│       │
+│       ├── components/
+│       │   ├── common/
+│       │   │   ├── Button.jsx
+│       │   │   ├── Input.jsx
+│       │   │   ├── Select.jsx
+│       │   │   ├── Modal.jsx
+│       │   │   ├── ConfirmDialog.jsx
+│       │   │   ├── Toast.jsx
+│       │   │   ├── LoadingSpinner.jsx
+│       │   │   ├── Skeleton.jsx
+│       │   │   ├── EmptyState.jsx
+│       │   │   ├── ErrorMessage.jsx
+│       │   │   ├── StatusBadge.jsx
+│       │   │   ├── Avatar.jsx
+│       │   │   ├── Dropdown.jsx
+│       │   │   └── Pagination.jsx
+│       │   │
+│       │   ├── layout/
+│       │   │   ├── Sidebar.jsx
+│       │   │   ├── MobileSidebar.jsx
+│       │   │   ├── Topbar.jsx
+│       │   │   ├── PageHeader.jsx
+│       │   │   └── DashboardLayout.jsx
+│       │   │
+│       │   ├── customer/
+│       │   │   ├── MenuCard.jsx
+│       │   │   ├── MenuGrid.jsx
+│       │   │   ├── CategoryTabs.jsx
+│       │   │   ├── SearchBar.jsx
+│       │   │   ├── CartDrawer.jsx
+│       │   │   ├── CartItem.jsx
+│       │   │   ├── OrderSummary.jsx
+│       │   │   ├── OrderStepper.jsx
+│       │   │   ├── OrderItem.jsx
+│       │   │   ├── LiveOrderTracker.jsx
+│       │   │   └── RestaurantInfo.jsx
+│       │   │
+│       │   ├── kitchen/
+│       │   │   ├── KitchenHeader.jsx
+│       │   │   ├── KitchenBoard.jsx
+│       │   │   ├── KitchenColumn.jsx
+│       │   │   ├── KitchenOrderCard.jsx
+│       │   │   ├── KitchenOrderItem.jsx
+│       │   │   ├── OrderTimer.jsx
+│       │   │   └── NewOrderAlert.jsx
+│       │   │
+│       │   ├── admin/
+│       │   │   ├── AdminSidebar.jsx
+│       │   │   ├── AdminHeader.jsx
+│       │   │   ├── DataTable.jsx
+│       │   │   ├── StatCard.jsx
+│       │   │   ├── RevenueChart.jsx
+│       │   │   ├── SalesChart.jsx
+│       │   │   ├── OrderTypeChart.jsx
+│       │   │   ├── TopItems.jsx
+│       │   │   ├── RecentTransactions.jsx
+│       │   │   ├── MenuForm.jsx
+│       │   │   ├── CategoryForm.jsx
+│       │   │   ├── UserForm.jsx
+│       │   │   ├── TableForm.jsx
+│       │   │   └── QRCodeDisplay.jsx
+│       │   │
+│       │   └── payment/
+│       │       ├── PaymentMethod.jsx
+│       │       ├── ChapaButton.jsx
+│       │       └── PaymentStatus.jsx
+│       │
+│       ├── context/
+│       │   ├── AuthContext.jsx
+│       │   ├── CartContext.jsx
+│       │   ├── OrderContext.jsx
+│       │   └── SocketContext.jsx
+        |    |---toete  add is neseory or not
+│       │
+│       ├── hooks/
+│       │   ├── useAuth.js
+│       │   ├── useCart.js
+│       │   ├── useOrders.js
+│       │   ├── useSocket.js
+│       │   ├── useDebounce.js
+│       │   └── useToast.js
+│       │
+│       ├── layouts/
+│       │   ├── CustomerLayout.jsx
+│       │   ├── StaffLayout.jsx
+│       │   └── AdminLayout.jsx
+│       │
+│       ├── pages/
+│       │   ├── public/
+│       │   │   ├── Home.jsx
+│       │   │   ├── Menu.jsx
+│       │   │   └── RestaurantInfo.jsx
+│       │   │
+│       │   ├── auth/
+│       │   │   ├── Login.jsx
+│       │   │   ├── Register.jsx
+│       │   │   └── ForgotPassword.jsx
+│       │   │
+│       │   ├── customer/
+│       │   │   ├── Cart.jsx
+│       │   │   ├── Checkout.jsx
+│       │   │   ├── OrderTracking.jsx
+│       │   │   ├── MyOrders.jsx
+│       │   │   ├── OrderDetails.jsx
+│       │   │   └── Profile.jsx
+│       │   │
+│       │   ├── kitchen/
+│       │   │   └── KitchenDashboard.jsx
+│       │   │
+│       │   ├── staff/
+│       │   │   ├── StaffDashboard.jsx
+│       │   │   ├── StaffOrders.jsx
+│       │   │   └── StaffOrderDetails.jsx
+│       │   │
+│       │   └── admin/
+│       │       ├── AdminDashboard.jsx
+│       │       ├── AdminOrders.jsx
+│       │       ├── AdminOrderDetails.jsx
+│       │       ├── MenuManagement.jsx
+│       │       ├── CategoryManagement.jsx
+│       │       ├── TableManagement.jsx
+│       │       ├── UserManagement.jsx
+│       │       ├── Analytics.jsx
+│       │       └── Settings.jsx
+│       │
+│       ├── routes/
+│       │   ├── AppRoutes.jsx
+│       │   ├── ProtectedRoute.jsx
+│       │   ├── AdminRoute.jsx
+│       │   ├── StaffRoute.jsx
+│       │   └── CustomerRoute.jsx
+│       │
+│       ├── services/
+│       │   ├── socketService.js
+│       │   ├── storageService.js
+│       │   └── notificationService.js
+│       │
+│       └── utils/
+│           ├── constants.js
+│           ├── formatCurrency.js
+│           ├── formatDate.js
+│           ├── orderStatus.js
+│           ├── validators.js
+│           └── helpers.js
+│
+├── server/                                    ← Node + Express + PostgreSQL
+│   ├── package.json
+│   ├── .env.example
+│   ├── .env                                   ← (gitignored)
+│   │
+│   ├── uploads/
+│   │   ├── .gitkeep
+│   │   └── food/                              ← uploaded images
+│   │
+│   └── src/
+│       ├── app.js
+│       ├── server.js
+│       │
+│       ├── config/
+│       │   ├── env.js
+│       │   ├── cors.js
+│       │   └── constants.js
+│       │
+│       ├── db/
+│       │   ├── pool.js
+│       │   ├── migrate.js
+│       │   ├── seed.js
+│       │   └── migrations/
+│       │       ├── 001_create_users.sql
+│       │       ├── 002_create_categories.sql
+│       │       ├── 003_create_menu_items.sql
+│       │       ├── 004_create_tables.sql
+│       │       ├── 005_create_orders.sql
+│       │       ├── 006_create_order_items.sql
+│       │       ├── 007_create_payments.sql
+│       │       └── 008_create_indexes.sql
+│       │
+│       ├── controllers/
+│       │   ├── authController.js
+│       │   ├── menuController.js
+│       │   ├── categoryController.js
+│       │   ├── orderController.js
+│       │   ├── tableController.js
+│       │   ├── paymentController.js
+│       │   ├── userController.js
+│       │   ├── adminController.js
+│       │   └── analyticsController.js
+│       │
+│       ├── middleware/
+│       │   ├── authenticate.js
+│       │   ├── authorize.js
+│       │   ├── errorHandler.js
+│       │   ├── notFound.js
+│       │   ├── validate.js
+│       │   ├── upload.js
+│       │   └── rateLimiter.js
+│       │
+│       ├── models/
+│       │   ├── userModel.js
+│       │   ├── categoryModel.js
+│       │   ├── menuModel.js
+│       │   ├── tableModel.js
+│       │   ├── orderModel.js
+│       │   ├── orderItemModel.js
+│       │   └── paymentModel.js
+│       │
+│       ├── routes/
+│       │   ├── index.js
+│       │   ├── authRoutes.js
+│       │   ├── menuRoutes.js
+│       │   ├── categoryRoutes.js
+│       │   ├── orderRoutes.js
+│       │   ├── tableRoutes.js
+│       │   ├── paymentRoutes.js
+│       │   ├── userRoutes.js
+│       │   ├── adminRoutes.js
+│       │   ├── analyticsRoutes.js
+│       │   └── healthRoutes.js
+│       │
+│       ├── services/
+│       │   ├── authService.js
+│       │   ├── orderService.js
+│       │   ├── menuService.js
+│       │   ├── paymentService.js
+│       │   ├── chapaService.js
+│       │   ├── analyticsService.js
+│       │   └── notificationService.js
+│       │
+│       ├── sockets/
+│       │   ├── socketServer.js
+│       │   ├── socketAuth.js
+│       │   ├── socketRooms.js
+│       │   └── orderEvents.js
+│       │
+│       ├── validators/
+│       │   ├── authValidator.js
+│       │   ├── menuValidator.js
+│       │   ├── orderValidator.js
+│       │   ├── categoryValidator.js
+│       │   ├── tableValidator.js
+│       │   └── paymentValidator.js
+│       │
+│       └── utils/
+│           ├── AppError.js
+│           ├── asyncHandler.js
+│           ├── jwt.js
+│           ├── password.js
+│           ├── orderStatus.js
+│           ├── calculations.js
+│           ├── trackingToken.js
+│           └── response.js
+│
+├── docs/
+│   ├── architecture.md
+│   ├── api.md
+│   ├── database.md
+│   ├── deployment.md
+│   └── screenshots/
+│       ├── customer-menu.png
+│       ├── order-tracking.png
+│       ├── kitchen-dashboard.png
+│       ├── analytics-dashboard.png
+│       └── admin-dashboard.png
+│
+└── .github/
+    └── workflows/
+        └── ci.yml
