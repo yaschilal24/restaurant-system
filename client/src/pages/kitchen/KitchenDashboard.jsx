@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import { orderApi } from '../../api/orderApi';
 import { useSocket } from '../../hooks/useSocket';
 import { useToast } from '../../hooks/useToast';
@@ -12,7 +12,8 @@ export default function KitchenDashboard() {
   const [loading, setLoading] = useState(true);
   const socket = useSocket();
   const toast = useToast();
-
+// use this console do
+console.get( useEffect);
   useEffect(() => {
     orderApi.list({ limit: 100 })
       .then(({ data }) => setOrders(data.data.orders))
