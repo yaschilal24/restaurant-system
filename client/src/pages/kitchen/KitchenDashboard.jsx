@@ -13,7 +13,6 @@ export default function KitchenDashboard() {
   const socket = useSocket();
   const toast = useToast();
 // use this console do
-console.get( useEffect);
   useEffect(() => {
     orderApi.list({ limit: 100 })
       .then(({ data }) => setOrders(data.data.orders))
