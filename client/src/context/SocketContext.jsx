@@ -36,9 +36,13 @@ export function SocketProvider({ children }) {
   useEffect(() => {
     const token = localStorage.getItem('token');
     
-    // ✅ Use the Render backend URL from Vercel environment variables
-    // Falls back to localhost for local development
-    const SOCKET_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    // Check if we are running locally or in production
+    const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+    
+    // Hardcode the Render URL for production (Vercel cannot proxy WebSockets)
+    const SOCKET_URL = isProduction 
+      ? 'https://restaurant-system-gmj1.onrender.com' 
+      : 'http://localhost:5000';
 
     const s = io(SOCKET_URL, {
       auth: { token },
