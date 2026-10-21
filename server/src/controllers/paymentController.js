@@ -1,43 +1,3 @@
-// const asyncHandler = require('../utils/asyncHandler');
-// const { success } = require('../utils/response');
-// const AppError = require('../utils/AppError');
-// const orderModel = require('../models/orderModel');
-// const paymentModel = require('../models/paymentModel');
-// const paymentService = require('../services/paymentService');
-// const chapaService = require('../services/chapaService');
-
-// const initializeChapa = asyncHandler(async (req, res) => {
-//   const { orderId } = req.body;
-//   const { rows } = await orderModel.findById(orderId);
-//   if (!rows.length) throw new AppError('Order not found', 404);
-//   const order = rows[0];
-
-//   const result = await chapaService.initializePayment(order);
-//   await paymentModel.create({
-//     order_id: order.id, provider: 'chapa', reference: result.tx_ref,
-//     amount: order.total, status: 'pending',
-//   });
-//   success(res, { checkout_url: result.checkout_url, tx_ref: result.tx_ref });
-// });
-
-// const verify = asyncHandler(async (req, res) => {
-//   const { reference } = req.params;
-//   const data = await chapaService.verifyPayment(reference);
-//   if (data.status === 'success' && data.data?.status === 'success') {
-//     const payment = (await paymentModel.findByReference(reference)).rows[0];
-//     if (payment) {
-//       await paymentService.markAsPaid(payment.order_id, {
-//         provider: 'chapa', reference, amount: payment.amount, raw: data,
-//       });
-//     }
-//   }
-//   success(res, data);
-// });
-
-// const list = asyncHandler(async (req, res) => success(res, (await paymentModel.list()).rows));
-
-// module.exports = { initializeChapa, verify, list };
-
 
 const asyncHandler = require('../utils/asyncHandler');
 const { success } = require('../utils/response');
@@ -210,9 +170,45 @@ const list = asyncHandler(
   }
 );
 
+const syncPending = asyncHandler(async (req, res) => {
+  const pool = require('../db/pool');
+  const orderModel = require('../models/orderModel');
+  const paymentModel = require('../models/paymentModel');
+  const chapaService = require('../services/chapaService');
+
+  // Find all pending Chapa payments
+  const { rows: pending } = await pool.query(
+    `SELECT * FROM payments 
+     WHERE status = 'pending' AND provider = 'chapa' 
+     ORDER BY created_at DESC LIMIT 50`
+  );
+
+  let updated = 0;
+  let failed = 0;
+
+  for (const payment of pending) {
+    try {
+      const result = await chapaService.verifyPayment(payment.reference);
+      
+      if (result.status === 'success' && result.data?.status === 'success') {
+        await paymentModel.updateStatus(payment.id, 'paid', result);
+        await orderModel.updatePaymentStatus(payment.order_id, 'paid');
+        updated++;
+      } else if (result.data?.status === 'failed') {
+        await paymentModel.updateStatus(payment.id, 'failed', result);
+        failed++;
+      }
+    } catch (err) {
+      console.error(`Sync failed for ${payment.reference}:`, err.message);
+    }
+  }
+
+  success(res, { checked: pending.length, updated, failed });
+});
 
 module.exports = {
   initializeChapa,
   verify,
   list,
+  syncPending,
 };
