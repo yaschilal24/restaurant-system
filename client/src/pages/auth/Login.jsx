@@ -61,21 +61,6 @@ export default function Login() {
             Don't have an account?{' '}
             <Link to="/register" className="text-primary hover:opacity-80 font-medium">Create account</Link>
           </p>
-
-          <div className="mt-6 pt-5 border-t border-border">
-            <p className="text-[10px] text-txt-disabled text-center uppercase tracking-wider mb-3">Quick demo login</p>
-            <div className="grid grid-cols-3 gap-2">
-              {[
-                { label: 'Admin', email: 'admin@restaurant.com' },
-                { label: 'Staff', email: 'staff@restaurant.com' },
-                { label: 'Customer', email: 'john@example.com' },
-              ].map(({ label, email }) => (
-                <button key={label} onClick={() => quickLogin(email)} className="text-[11px] py-2 rounded-lg bg-bg-elevated border border-border text-txt-secondary hover:text-primary hover:border-primary/30 transition-colors">
-                  {label}
-                </button>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
     </div>
